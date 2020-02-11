@@ -6,7 +6,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-//
+        one();
+        System.out.println();
+        System.out.println("-----------------------------------");
         five();
         System.out.println("-----------------------------------");
         threeth();
