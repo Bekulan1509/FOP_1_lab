@@ -1,16 +1,12 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
 
     public static void main(String[] args) {
-        one();
-        System.out.println("-----------------------------------");
+//
         five();
         System.out.println("-----------------------------------");
         threeth();
@@ -24,27 +20,66 @@ public class Main {
     }
 
     public static void second() {
-        System.out.println("which would you like to buy (magazine or journal) ");
+        String choose = "";
         Scanner scanner = new Scanner(System.in);
-        String choose = scanner.next();
+        System.out.println("which would you like to buy (magazine or journal) ");
+        choose = scanner.next();
+
         System.out.println("how much  money do have?");
         int money = scanner.nextInt();
         int magazineWorth = 15;
         int journalWorth = 25;
         int summ;
-        if (choose.equals("magazine")) {
+        if (money < magazineWorth) {
+            System.out.println("you don't have enough money to purchase a magazine");
+        } else if (money < journalWorth && money > magazineWorth) {
+            System.out.println("you don't have enough money to purchase a  journal");
+            System.out.println("But you have enough money to purchase  a magazine");
+            System.out.println("would you like to purchase one ? ");
+            System.out.println("Enter yes or no");
+            choose = scanner.next();
+            if (choose.equals("yes")) {
+                summ = money - magazineWorth;
+                System.out.println("thanks for the purchasing" + " " +
+                        "your change is " + summ + " som");
+            }
+        } else if (choose.equals("magazine") && money > magazineWorth) {
             summ = money - magazineWorth;
             System.out.println(" thanks for the purchasing" + " " +
                     "your change is " + summ + " som");
-        } else if (choose.equals("journal")) {
+        } else if (choose.equals("journal") && money > journalWorth) {
             summ = money - journalWorth;
             System.out.println("thanks for the purchasing " + "" +
                     "your change is " + summ + " som ");
-
-
+        } else if (money == magazineWorth) {
+            System.out.println("thanks for purchasing");
+            System.out.println("thanks for the purchasing " + "" +
+                    "your change is  0 som");
+        } else if (money < journalWorth && money == magazineWorth) {
+            System.out.println("you don't have enough money to purchase a journal, but you can purchase a magazine  ");
+            System.out.println("Enter yes or no");
+            choose = scanner.next();
+            if (choose.equals("yes")) {
+                summ = money - magazineWorth;
+                System.out.println("thanks for the purchasing " + "" +
+                        "your change is " + summ + " som ");
+            }
+        } else if (money < journalWorth && money > magazineWorth) {
+            System.out.println("you  have enough money for a magazine but not enough one for a journal");
+            System.out.println("would you like to purchase a magazine");
+            choose = scanner.next();
+            if (choose.equals("magazine")) {
+                summ = money - magazineWorth;
+                System.out.println("thanks for the purchasing" + " " +
+                        "your change is " + summ + " som");
+            }
+        } else if (money == journalWorth) {
+            System.out.println("thanks for purchasing");
+            System.out.println("thanks for the purchasing " + "" +
+                    "your change is  0 som");
         }
-
     }
+
 
     public static void forth() {
         int sum;
@@ -59,13 +94,14 @@ public class Main {
         System.out.println("enter y number : ");
         y = scanner.nextInt();
 
-        sum = x2 * x2 * x2 + y * y - x * x * x * x;
+        sum = x*x*x*x - x2*x2*x2 - y*y;
         System.out.println("sum = " + sum);
 
     }
 
     public static void threeth() {
         boolean checkFlag = true;
+        char name = 0;
 
 
         System.out.println("Please enter last name");
@@ -75,8 +111,6 @@ public class Main {
 
             Scanner scanner = new Scanner(System.in);
             String lastName = scanner.next();
-            char name = lastName.toUpperCase().charAt(0);
-            lastName = lastName.substring(1);
 
 
             try {
@@ -90,14 +124,18 @@ public class Main {
                             flag = false;
                         }
 
+
                     }
 
 
                 }
+
+                name = lastName.toUpperCase().charAt(0);
+                lastName = lastName.substring(1);
                 if (flag == true) {
                     System.out.println("registration is done!");
 
-                    System.out.println("Result is " + name + lastName);
+                    System.out.println("Result is " + name + lastName.toLowerCase(Locale.ENGLISH));
                     checkFlag = false;
                 }
 
@@ -114,62 +152,61 @@ public class Main {
 
     public static void five() {
         Random random = new Random();
-        int numbers = 0;
-        int numbersPlus = 0;
+        Scanner scaner = new Scanner(System.in);
 
-        int[][] array = new int[3][3];
-        for (int i = 0; i < array.length; i++)
-            for (int j = 0; j < array.length; j++) {
-                array[i][j] = random.nextInt(100) - 35;
-            }
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length; j++) {
+        try {
 
-                System.out.print(array[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-        System.out.println("after the operations : ");
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length; j++) {
-                if (array[i][j] > 0) {
-                    numbersPlus += array[i][j];
-                } else
-                    numbers += array[i][j];
+            int numbers = 0;
+            int numbersPlus = 0;
+
+            int[][] array = new int[100][100];
+            System.out.println("enter numbers! ");
+            int scan = scaner.nextInt();
+            for (int i = 0; i < scan; i++)
+                for (int j = 0; j < scan; j++) {
+                    array[i][j] = random.nextInt(100) - 35;
+                }
+            for (int i = 0; i < scan; i++) {
+                for (int j = 0; j < scan; j++) {
+
+                    System.out.print(array[i][j] + " ");
+                }
+                System.out.println();
             }
             System.out.println();
-        }
-        System.out.println();
-        System.out.println("plus : " + numbersPlus);
-        System.out.println("minus : " + numbers);
+            System.out.println("after the operations : ");
+            for (int i = 0; i < scan; i++) {
+                for (int j = 0; j < scan; j++) {
+                    if (array[i][j] > 0) {
+                        numbersPlus += array[i][j];
+                    } else
+                        numbers += array[i][j];
+                }
 
+            }
+            System.out.println();
+            System.out.println("plus : " + numbersPlus);
+            System.out.println("minus : " + numbers);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("enter numbers till 100");
+        }
 
     }
 
     public static void one() {
-        ArrayList<String> arrayList = new ArrayList<>();
+        int num, k;
+        System.out.println("enter numbers : ");
         Scanner scanner = new Scanner(System.in);
-        boolean flag = true;
-         while (flag) {
-        System.out.println("введите  цифры если хотите остановиться напишите stop на англиском : ");
-        String numbers = scanner.next();
-        Collections.reverse(arrayList);
-        arrayList.add(numbers);
-        if (numbers.equals("stop")) {
-            flag = false;
+        num = scanner.nextInt();
+        while (num > 0) {
+            k = num % 10;
+            num /= 10;
+            System.out.print(k);
+
+
         }
-             System.out.println("----------------------");
-             Collections.reverse(arrayList);
-             for (int i =0; i < arrayList.size(); i++) {
-                 System.out.println(arrayList.get(i));
-             }
-
-         }
-
 
     }
-
 
 }
 
